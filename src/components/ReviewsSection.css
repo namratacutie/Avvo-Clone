@@ -1,0 +1,98 @@
+.reviews-section {
+    background: var(--color-white);
+}
+
+.reviews-section__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-lg);
+}
+
+.review-card {
+    position: relative;
+    padding: var(--space-2xl);
+    background: var(--color-gray-50);
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--color-gray-100);
+    transition: all var(--transition-base);
+    animation: fadeInUp 0.5s ease both;
+}
+
+.review-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+
+.review-card__quote-icon {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    font-size: 2rem;
+    color: var(--color-gray-200);
+}
+
+.review-card__stars {
+    margin-bottom: var(--space-md);
+    font-size: 1rem;
+}
+
+.review-card__text {
+    font-size: var(--font-size-base);
+    color: var(--color-gray-700);
+    line-height: 1.8;
+    margin-bottom: var(--space-xl);
+    font-style: italic;
+}
+
+.review-card__author {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.review-card__avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--border-radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-white);
+    font-weight: 700;
+    font-size: var(--font-size-lg);
+    flex-shrink: 0;
+}
+
+.review-card__name {
+    display: block;
+    font-weight: 700;
+    font-size: var(--font-size-base);
+    color: var(--color-black);
+}
+
+.review-card__location {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-gray-500);
+}
+
+.review-card__type {
+    margin-left: auto;
+    font-size: var(--font-size-xs);
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: var(--border-radius-full);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .reviews-section__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .review-card {
+        padding: var(--space-xl);
+    }
+}
