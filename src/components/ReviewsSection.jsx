@@ -4,7 +4,7 @@ import './ReviewsSection.css';
 
 const reviews = [
     {
-        name: 'Amanda T.',
+        name: 'Lawarna Aree',
         location: 'Kathmandu, Bagmati',
         rating: 5,
         text: 'I was terrified about my custody case, but the attorney I found through Avvo was incredible. She guided me through every step and we got a great outcome. I can\'t recommend this platform enough!',
@@ -12,7 +12,7 @@ const reviews = [
         color: '#e91e63',
     },
     {
-        name: 'Marcus J.',
+        name: 'Lawarna Aree',
         location: 'Bhaktapur, Bagmati',
         rating: 5,
         text: 'After being charged with a DUI, I didn\'t know where to turn. Avvo connected me with an amazing defense attorney who got my charges reduced. The rating system made it easy to choose.',
@@ -20,7 +20,7 @@ const reviews = [
         color: '#9c27b0',
     },
     {
-        name: 'Rachel K.',
+        name: 'Lawarna Aree',
         location: 'Pokhara, Gandaki',
         rating: 5,
         text: 'The free Q&A section helped me understand my rights as a tenant before I even hired a lawyer. When I did need one, I found the perfect real estate attorney in minutes.',
@@ -28,7 +28,7 @@ const reviews = [
         color: '#4caf50',
     },
     {
-        name: 'David P.',
+        name: 'Lawarna Aree',
         location: 'Lalitpur, Bagmati',
         rating: 5,
         text: 'Starting my business was stressful enough without worrying about legal issues. My Avvo-recommended business attorney made the LLC formation process seamless and affordable.',
