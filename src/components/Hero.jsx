@@ -32,8 +32,8 @@ const Hero = () => {
                         <span className="hero__title-accent"> We've Got You Covered</span>
                     </h1>
                     <p className="hero__subtitle">
-                        Find the right lawyer for your situation. Compare attorneys, read reviews,
-                        and get free legal advice from top-rated professionals.
+                        Find the right lawyer for your situation through Find Lawyer Nepal. Compare top-rated attorneys, read verified reviews,
+                        and get free legal advice from professionals.
                     </p>
 
                     {/* Search Box */}

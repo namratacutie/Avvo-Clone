@@ -162,7 +162,7 @@ const FeaturedLawyers = () => {
                     <div>
                         <h2 className="section-title">Featured Attorneys</h2>
                         <p className="section-subtitle">
-                            Top-rated lawyers ready to help with your legal needs. Scroll to explore →
+                            Top-rated lawyers ready to help with your legal needs. Scroll to explore Find Lawyer Nepal attorneys →
                         </p>
                     </div>
                     <div className="featured-lawyers__nav">

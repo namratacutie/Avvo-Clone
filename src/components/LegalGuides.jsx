@@ -4,9 +4,9 @@ import './LegalGuides.css';
 
 const guides = [
     {
-        category: 'Divorce',
-        title: 'The Complete Guide to Divorce: Process, Costs, and What to Expect',
-        excerpt: 'A comprehensive overview of the divorce process, including filing requirements, property division, child custody considerations, and typical costs.',
+        category: 'Family Law',
+        title: 'Complete Guide to Divorce in Nepal: Laws, Process, and Costs',
+        excerpt: 'A comprehensive overview of the divorce process in Nepal, including filing requirements under the Muluki Civil Code, property division, and child custody.',
         readTime: '12 min read',
         color: '#e91e63',
     },
@@ -25,9 +25,9 @@ const guides = [
         color: '#ff9800',
     },
     {
-        category: 'Immigration',
-        title: 'Green Card Application Process: Eligibility, Forms, and Timeline',
-        excerpt: 'A detailed walkthrough of the U.S. permanent residency application process, including family-based and employment-based pathways.',
+        category: 'Property Law',
+        title: 'Buying Land in Nepal: Legal Procedures and Requirements',
+        excerpt: 'A detailed walkthrough of the land purchase process in Nepal, including title verification, registration at the Malpot Office, and tax implications.',
         readTime: '15 min read',
         color: '#2196f3',
     },
@@ -53,9 +53,9 @@ const LegalGuides = () => {
             <div className="container">
                 <div className="legal-guides__header">
                     <div>
-                        <h2 className="section-title">Legal Guides & Resources</h2>
+                        <h2 className="section-title">Nepal Legal Guides & Resources</h2>
                         <p className="section-subtitle">
-                            Free legal guides written by attorneys to help you understand your rights.
+                            Free legal guides written by Nepali attorneys to help you understand your rights under the local law.
                         </p>
                     </div>
                     <a href="#all-guides" className="legal-guides__view-all">

@@ -7,7 +7,7 @@ const reviews = [
         name: 'Lawarna Aree',
         location: 'Kathmandu, Bagmati',
         rating: 5,
-        text: 'I was terrified about my custody case, but the attorney I found through Avvo was incredible. She guided me through every step and we got a great outcome. I can\'t recommend this platform enough!',
+        text: 'I was terrified about my custody case, but the attorney I found through Find Lawyer Nepal was incredible. She guided me through every step and we got a great outcome. I can\'t recommend this platform enough!',
         type: 'Family Law',
         color: '#e91e63',
     },
@@ -15,7 +15,7 @@ const reviews = [
         name: 'Lawarna Aree',
         location: 'Bhaktapur, Bagmati',
         rating: 5,
-        text: 'After being charged with a DUI, I didn\'t know where to turn. Avvo connected me with an amazing defense attorney who got my charges reduced. The rating system made it easy to choose.',
+        text: 'After being charged with a DUI, I didn\'t know where to turn. Find Lawyer Nepal connected me with an amazing defense attorney who got my charges reduced. The rating system made it easy to choose.',
         type: 'DUI Defense',
         color: '#9c27b0',
     },
@@ -31,7 +31,7 @@ const reviews = [
         name: 'Lawarna Aree',
         location: 'Lalitpur, Bagmati',
         rating: 5,
-        text: 'Starting my business was stressful enough without worrying about legal issues. My Avvo-recommended business attorney made the LLC formation process seamless and affordable.',
+        text: 'Starting my business was stressful enough without worrying about legal issues. My Find Lawyer Nepal-recommended business attorney made the LLC formation process seamless and affordable.',
         type: 'Business Law',
         color: '#2196f3',
     },
@@ -44,7 +44,7 @@ const ReviewsSection = () => {
                 <div className="text-center">
                     <h2 className="section-title">What Our Users Say</h2>
                     <p className="section-subtitle mx-auto">
-                        Join millions of people who have found the right lawyer through Avvo.
+                        Join millions of people who have found the right lawyer through Find Lawyer Nepal.
                     </p>
                 </div>
 

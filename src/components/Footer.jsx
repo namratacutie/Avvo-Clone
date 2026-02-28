@@ -11,7 +11,7 @@ const Footer = () => {
                     <div className="footer__cta-content">
                         <h3 className="footer__cta-title">Are You a Lawyer?</h3>
                         <p className="footer__cta-text">
-                            Grow your practice with Avvo. Claim your free profile and reach millions of potential clients.
+                            Grow your practice with Find Lawyer Nepal. Claim your free profile and reach millions of potential clients.
                         </p>
                     </div>
                     <button className="btn btn-accent btn-lg">Claim Your Profile</button>
@@ -20,9 +20,9 @@ const Footer = () => {
                 {/* Footer Links */}
                 <div className="footer__grid">
                     <div className="footer__col">
-                        <a href="/" className="footer__logo">avvo</a>
+                        <a href="/" className="footer__logo">Find Lawyer Nepal</a>
                         <p className="footer__about">
-                            Avvo connects people with the right lawyers. Search for attorneys, get free legal advice, and research legal topics.
+                            Find Lawyer Nepal connects people with the right lawyers. Search for attorneys, get free legal advice, and research legal topics.
                         </p>
                         <div className="footer__socials">
                             <a href="#" className="footer__social-link" aria-label="Facebook"><FaFacebookF /></a>
@@ -48,9 +48,9 @@ const Footer = () => {
                     <div className="footer__col">
                         <h4 className="footer__col-title">For Lawyers</h4>
                         <ul className="footer__links">
-                            <li><a href="#">Avvo for Lawyers</a></li>
+                            <li><a href="#">Find Lawyer Nepal for Lawyers</a></li>
                             <li><a href="#">Claim Your Profile</a></li>
-                            <li><a href="#">Avvo Legal Services</a></li>
+                            <li><a href="#">Find Lawyer Nepal Legal Services</a></li>
                             <li><a href="#">Advertising</a></li>
                             <li><a href="#">Lawyer Directory</a></li>
                             <li><a href="#">Pricing</a></li>
@@ -70,7 +70,7 @@ const Footer = () => {
                     </div>
 
                     <div className="footer__col">
-                        <h4 className="footer__col-title">About Avvo</h4>
+                        <h4 className="footer__col-title">About Find Lawyer Nepal</h4>
                         <ul className="footer__links">
                             <li><a href="#">About Us</a></li>
                             <li><a href="#">Careers</a></li>
@@ -85,7 +85,7 @@ const Footer = () => {
                 {/* Bottom Bar */}
                 <div className="footer__bottom">
                     <p className="footer__copyright">
-                        © 2026 Avvo Clone. This is a demo website and not affiliated with Avvo, Inc.
+                        © 2026 Find Lawyer Nepal. All rights reserved. Locally developed for Nepal.
                     </p>
                     <div className="footer__legal-links">
                         <a href="#">Terms of Use</a>

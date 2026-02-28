@@ -19,7 +19,7 @@ const Navbar = () => {
             <div className="navbar__container container">
                 {/* Logo */}
                 <a href="/" className="navbar__logo">
-                    <span className="navbar__logo-text">avvo</span>
+                    <span className="navbar__logo-text">Find Lawyer Nepal</span>
                 </a>
 
                 {/* Desktop Nav Links */}

@@ -19,7 +19,7 @@ const steps = [
         icon: <FiCheckCircle />,
         step: '03',
         title: 'Choose the Right Lawyer',
-        description: 'Compare profiles, read reviews, check Avvo ratings, and choose the attorney that\'s the best fit for you. It\'s free to search.',
+        description: 'Compare profiles, read reviews, check Find Lawyer Nepal ratings, and choose the attorney that\'s the best fit for you. It\'s free to search.',
     },
 ];
 
@@ -28,7 +28,7 @@ const HowItWorks = () => {
         <section className="how-it-works section">
             <div className="container">
                 <div className="text-center">
-                    <h2 className="section-title">How Avvo Works</h2>
+                    <h2 className="section-title">How Find Lawyer Nepal Works</h2>
                     <p className="section-subtitle mx-auto">
                         Finding the right lawyer has never been easier. Here's how it works in three simple steps.
                     </p>
