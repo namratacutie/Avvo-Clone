@@ -7,6 +7,7 @@ import {
     where,
     limit,
     addDoc,
+    updateDoc,
     serverTimestamp
 } from 'firebase/firestore';
 import { db } from '../backend/firebase';
@@ -39,6 +40,21 @@ export const lawyerService = {
         } catch (error) {
             console.error("Error fetching lawyers:", error);
             return [];
+        }
+    },
+
+    // Update lawyer rating and review count
+    updateLawyerRating: async (lawyerId, newRating, newReviewCount) => {
+        try {
+            const lawyerRef = doc(db, COLLECTION_NAME, lawyerId);
+            await updateDoc(lawyerRef, {
+                rating: Number(newRating.toFixed(1)),
+                reviewCount: newReviewCount
+            });
+            return true;
+        } catch (error) {
+            console.error("Error updating lawyer rating:", error);
+            return false;
         }
     },
 

@@ -8,11 +8,11 @@ const SearchResults = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [lawyers, setLawyers] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [sortBy, setSortBy] = useState('rating');
 
     const issueQuery = searchParams.get('issue') || '';
     const locationQuery = searchParams.get('location') || '';
     const topicQuery = searchParams.get('topic') || '';
-    const typeQuery = searchParams.get('type') || '';
 
     useEffect(() => {
         const fetchLawyers = async () => {
@@ -24,30 +24,37 @@ const SearchResults = () => {
         fetchLawyers();
     }, []);
 
-    // Advanced filtering logic
+    // Advanced filtering and sorting logic
     const filteredLawyers = useMemo(() => {
-        return lawyers.filter(lawyer => {
-            const matchesIssue = !issueQuery ||
-                lawyer.specialty.toLowerCase().includes(issueQuery.toLowerCase()) ||
-                lawyer.detailedSpecialty.toLowerCase().includes(issueQuery.toLowerCase());
+        let results = lawyers.filter(lawyer => {
+            const searchTerm = (issueQuery || topicQuery).toLowerCase();
+            const matchesKeyword = !searchTerm ||
+                lawyer.specialty.toLowerCase().includes(searchTerm) ||
+                lawyer.detailedSpecialty.toLowerCase().includes(searchTerm) ||
+                lawyer.name.toLowerCase().includes(searchTerm) ||
+                lawyer.bio.toLowerCase().includes(searchTerm);
 
             const matchesLocation = !locationQuery ||
                 lawyer.city.toLowerCase().includes(locationQuery.toLowerCase());
 
-            const matchesTopic = !topicQuery ||
-                lawyer.specialty.toLowerCase().replace(/\s+/g, '-').includes(topicQuery.toLowerCase());
-
-            return matchesIssue && matchesLocation && matchesTopic;
+            return matchesKeyword && matchesLocation;
         });
-    }, [issueQuery, locationQuery, topicQuery, lawyers]);
 
-    // Grouping for sidebar filters
+        // Apply Sorting
+        return [...results].sort((a, b) => {
+            if (sortBy === 'rating') return b.rating - a.rating;
+            if (sortBy === 'reviews') return (b.reviewCount || 0) - (a.reviewCount || 0);
+            if (sortBy === 'newest') return b.createdAt?.seconds - a.createdAt?.seconds;
+            return 0;
+        });
+    }, [issueQuery, locationQuery, topicQuery, lawyers, sortBy]);
+
     const cities = useMemo(() => [...new Set(lawyers.map(l => l.city))], [lawyers]);
     const specialties = useMemo(() => [...new Set(lawyers.map(l => l.specialty))], [lawyers]);
 
     const toggleFilter = (key, value) => {
         const newParams = new URLSearchParams(searchParams);
-        if (newParams.get(key) === value) {
+        if (newParams.get(key)?.toLowerCase() === value.toLowerCase()) {
             newParams.delete(key);
         } else {
             newParams.set(key, value);
@@ -107,13 +114,28 @@ const SearchResults = () => {
                     {/* Results Content */}
                     <main className="search-results__content">
                         <div className="search-results__header">
-                            <h1 className="search-results__title">
-                                {issueQuery || topicQuery || 'All Lawyers'}
-                                {locationQuery ? ` in ${locationQuery}` : ' in Nepal'}
-                            </h1>
-                            <p className="search-results__count">
-                                Found {filteredLawyers.length} top-rated attorneys
-                            </p>
+                            <div>
+                                <h1 className="search-results__title">
+                                    {issueQuery || topicQuery || 'All Lawyers'}
+                                    {locationQuery ? ` in ${locationQuery}` : ' in Nepal'}
+                                </h1>
+                                <p className="search-results__count">
+                                    Found {filteredLawyers.length} top-rated attorneys
+                                </p>
+                            </div>
+
+                            <div className="search-results__sort">
+                                <label>Sort by:</label>
+                                <select
+                                    value={sortBy}
+                                    onChange={(e) => setSortBy(e.target.value)}
+                                    className="sort-select"
+                                >
+                                    <option value="rating">Top Rated</option>
+                                    <option value="reviews">Most Reviews</option>
+                                    <option value="newest">Newest</option>
+                                </select>
+                            </div>
                         </div>
 
                         {filteredLawyers.length > 0 ? (
@@ -141,7 +163,7 @@ const SearchResults = () => {
 
                                         <div className="result-card__meta">
                                             <div className="result-card__rating">
-                                                <span className="result-card__rating-value">{lawyer.rating}.0</span>
+                                                <span className="result-card__rating-value">{lawyer.rating?.toFixed(1) || '0.0'}</span>
                                                 <span className="result-card__rating-label">Find Lawyer Nepal Rating</span>
                                             </div>
                                             <div style={{ display: 'flex', gap: '8px', width: '100%' }}>

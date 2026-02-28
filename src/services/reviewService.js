@@ -2,6 +2,8 @@ import {
     collection,
     getDocs,
     query,
+    where,
+    orderBy,
     limit,
     addDoc,
     serverTimestamp
@@ -13,20 +15,37 @@ const COLLECTION_NAME = 'reviews';
 // Mock data removed as it is now in Firestore
 
 export const reviewService = {
-    // Fetch all reviews
-    getAllReviews: async (limitCount = 10) => {
+    // Fetch reviews for a specific lawyer
+    getReviewsByLawyerId: async (lawyerId) => {
         try {
-            const q = query(collection(db, COLLECTION_NAME), limit(limitCount));
+            const q = query(
+                collection(db, COLLECTION_NAME),
+                where('lawyerId', '==', lawyerId),
+                orderBy('createdAt', 'desc')
+            );
             const querySnapshot = await getDocs(q);
-            const reviews = querySnapshot.docs.map(doc => ({
+            return querySnapshot.docs.map(doc => ({
                 id: doc.id,
                 ...doc.data()
             }));
-
-            return reviews;
         } catch (error) {
-            console.error("Error fetching reviews:", error);
+            console.error("Error fetching lawyer reviews:", error);
             return [];
+        }
+    },
+
+    // Submit a new review
+    addReview: async (reviewData) => {
+        try {
+            const reviewsRef = collection(db, COLLECTION_NAME);
+            const docRef = await addDoc(reviewsRef, {
+                ...reviewData,
+                createdAt: serverTimestamp()
+            });
+            return docRef.id;
+        } catch (error) {
+            console.error("Error adding review:", error);
+            throw error;
         }
     },
 

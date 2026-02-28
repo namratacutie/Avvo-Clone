@@ -57,6 +57,36 @@ export const qaService = {
         }
     },
 
+    // Post an answer to a question (Lawyer only)
+    addAnswer: async (questionId, answerData) => {
+        try {
+            const questionRef = doc(db, COLLECTION_NAME, questionId);
+            const questionSnap = await getDoc(questionRef);
+
+            if (!questionSnap.exists()) {
+                throw new Error("Question not found");
+            }
+
+            const currentData = questionSnap.data();
+            const newAnswer = {
+                ...answerData,
+                createdAt: new Date().toISOString()
+            };
+
+            await updateDoc(questionRef, {
+                answers: arrayUnion(newAnswer),
+                answersCount: (currentData.answersCount || 0) + 1,
+                // Automatically set topAnswer if it's the first answer
+                topAnswer: currentData.topAnswer ? currentData.topAnswer : newAnswer
+            });
+
+            return true;
+        } catch (error) {
+            console.error("Error adding answer:", error);
+            throw error;
+        }
+    },
+
     // Seed mock questions
     seedMockQuestions: async () => {
         try {
