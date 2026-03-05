@@ -7,6 +7,8 @@ import SearchResults from './pages/SearchResults';
 import LawyerProfile from './pages/LawyerProfile';
 import LegalGuide from './pages/LegalGuide';
 import AskLawyer from './pages/AskLawyer';
+import Documents from './pages/Documents';
+import DocumentBuilder from './pages/DocumentBuilder';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import { AuthProvider } from './context/AuthContext';
@@ -47,6 +49,8 @@ const App = () => {
           <Route path="/lawyer/:id" element={<LawyerProfile />} />
           <Route path="/guide/:id" element={<LegalGuide />} />
           <Route path="/ask" element={<AskLawyer />} />
+          <Route path="/documents" element={<Documents />} />
+          <Route path="/documents/:templateId" element={<DocumentBuilder />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
         </Routes>

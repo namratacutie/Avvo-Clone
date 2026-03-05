@@ -57,9 +57,8 @@ const Navbar = () => {
                         </Link>
                     </li>
                     <li className="navbar__link-item">
-                        <Link to="/search?type=research" className="navbar__link">
-                            Research Legal Topics
-                            <FiChevronDown className="navbar__link-icon" />
+                        <Link to="/documents" className="navbar__link">
+                            Legal Documents
                         </Link>
                     </li>
                     <li className="navbar__link-item">
@@ -106,7 +105,7 @@ const Navbar = () => {
                 <ul className="navbar__mobile-links">
                     <li><Link to="/search" onClick={() => setMobileOpen(false)}>Find a Lawyer</Link></li>
                     <li><Link to="/ask" onClick={() => setMobileOpen(false)}>Ask a Lawyer</Link></li>
-                    <li><Link to="/search?type=research" onClick={() => setMobileOpen(false)}>Research Legal Topics</Link></li>
+                    <li><Link to="/documents" onClick={() => setMobileOpen(false)}>Legal Documents</Link></li>
                     <li><Link to="/search?type=browse" onClick={() => setMobileOpen(false)}>Browse Lawyers</Link></li>
                 </ul>
                 <div className="navbar__mobile-actions">
