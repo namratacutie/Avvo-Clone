@@ -88,76 +88,80 @@ const QASection = () => {
                         {loading ? (
                             <div style={{ textAlign: 'center', padding: '40px' }}>Loading questions...</div>
                         ) : questions.length > 0 ? (
-                            questions.map((q) => (
-                                <div key={q.id} className="qa-card">
-                                    <div className="qa-card__header">
-                                        <span className="qa-card__category" style={{
-                                            background: `${q.topAnswer?.lawyerColor || '#666'}15`,
-                                            color: q.topAnswer?.lawyerColor || '#666'
-                                        }}>
-                                            {q.category}
-                                        </span>
-                                        <span className="qa-card__time">
-                                            {q.createdAt?.seconds ? new Date(q.createdAt.seconds * 1000).toLocaleDateString() : 'Recently'}
-                                        </span>
-                                    </div>
-                                    <h4 className="qa-card__question">{q.question}</h4>
+                            questions
+                                .filter(q => q.question !== "Is my employer required to pay overtime if I work more than 48 hours a week in Nepal?")
+                                .map((q) => (
+                                    <div key={q.id} className="qa-card">
+                                        <div className="qa-card__header">
+                                            <span className="qa-card__category" style={{
+                                                background: `${q.topAnswer?.lawyerColor || '#1a73e8'}15`,
+                                                color: q.topAnswer?.lawyerColor || '#1a73e8'
+                                            }}>
+                                                {q.category || 'General'}
+                                            </span>
+                                            <span className="qa-card__time">
+                                                {q.createdAt?.seconds ? new Date(q.createdAt.seconds * 1000).toLocaleDateString() : 'Recently'}
+                                            </span>
+                                        </div>
+                                        <h4 className="qa-card__question">{q.question}</h4>
 
-                                    {q.topAnswer ? (
-                                        <div className="qa-card__answer">
-                                            <div className="qa-card__answer-avatar" style={{ background: q.topAnswer.lawyerColor }}>
-                                                {q.topAnswer.lawyerName.charAt(0)}
-                                            </div>
-                                            <div className="qa-card__answer-content">
-                                                <div className="qa-card__lawyer-meta">
-                                                    <span className="qa-card__lawyer">{q.topAnswer.lawyerName}</span>
-                                                    <span className="qa-card__badge"><FaCheckCircle /> Attorney</span>
+                                        {q.topAnswer ? (
+                                            <div className="qa-card__answer">
+                                                <div className="qa-card__answer-avatar" style={{ background: q.topAnswer.lawyerColor || 'var(--color-primary)' }}>
+                                                    {q.topAnswer.lawyerName?.charAt(0) || 'A'}
                                                 </div>
-                                                <p className="qa-card__answer-text">{q.topAnswer.text}</p>
+                                                <div className="qa-card__answer-content">
+                                                    <div className="qa-card__lawyer-meta">
+                                                        <span className="qa-card__lawyer">{q.topAnswer.lawyerName}</span>
+                                                        <span className="qa-card__badge"><FaCheckCircle /> Attorney</span>
+                                                    </div>
+                                                    <p className="qa-card__answer-text">
+                                                        {q.topAnswer.text || 'Providing professional legal advice...'}
+                                                    </p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    ) : (
-                                        <div className="qa-card__no-answer">
-                                            <p>Waiting for attorney answer...</p>
-                                            {lawyerProfile && answeringId !== q.id && (
-                                                <button
-                                                    className="btn btn-secondary btn-sm"
-                                                    style={{ marginTop: '10px' }}
-                                                    onClick={() => setAnsweringId(q.id)}
-                                                >
-                                                    Respond as Attorney
-                                                </button>
-                                            )}
-                                        </div>
-                                    )}
-
-                                    {answeringId === q.id && (
-                                        <div className="qa-card__answer-form">
-                                            <textarea
-                                                value={answerText}
-                                                onChange={(e) => setAnswerText(e.target.value)}
-                                                placeholder="Write your professional legal advice..."
-                                                rows="4"
-                                            />
-                                            <div className="qa-card__form-actions">
-                                                <button className="btn btn-sm" onClick={() => setAnsweringId(null)}>Cancel</button>
-                                                <button
-                                                    className="btn btn-primary btn-sm"
-                                                    onClick={() => handleAnswerSubmit(q.id)}
-                                                    disabled={submitting || !answerText.trim()}
-                                                >
-                                                    {submitting ? 'Posting...' : 'Post Answer'}
-                                                </button>
+                                        ) : (
+                                            <div className="qa-card__no-answer">
+                                                <p>Waiting for attorney answer...</p>
+                                                {lawyerProfile && answeringId !== q.id && (
+                                                    <button
+                                                        className="btn btn-secondary btn-sm"
+                                                        style={{ marginTop: '10px' }}
+                                                        onClick={() => setAnsweringId(q.id)}
+                                                    >
+                                                        Respond as Attorney
+                                                    </button>
+                                                )}
                                             </div>
-                                        </div>
-                                    )}
+                                        )}
 
-                                    <div className="qa-card__footer">
-                                        <span className="qa-card__stat"><FaCommentDots /> {q.answersCount || 0} answers</span>
-                                        <span className="qa-card__stat"><FaThumbsUp /> {q.likes || 0} helpful</span>
+                                        {answeringId === q.id && (
+                                            <div className="qa-card__answer-form">
+                                                <textarea
+                                                    value={answerText}
+                                                    onChange={(e) => setAnswerText(e.target.value)}
+                                                    placeholder="Write your professional legal advice..."
+                                                    rows="4"
+                                                />
+                                                <div className="qa-card__form-actions">
+                                                    <button className="btn btn-sm" onClick={() => setAnsweringId(null)}>Cancel</button>
+                                                    <button
+                                                        className="btn btn-primary btn-sm"
+                                                        onClick={() => handleAnswerSubmit(q.id)}
+                                                        disabled={submitting || !answerText.trim()}
+                                                    >
+                                                        {submitting ? 'Posting...' : 'Post Answer'}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        <div className="qa-card__footer">
+                                            <span className="qa-card__stat"><FaCommentDots /> {q.answersCount || 0} answers</span>
+                                            <span className="qa-card__stat"><FaThumbsUp /> {q.likes || 0} helpful</span>
+                                        </div>
                                     </div>
-                                </div>
-                            ))
+                                ))
                         ) : (
                             <div style={{ textAlign: 'center', padding: '40px' }}>No questions yet. Be the first to ask!</div>
                         )}

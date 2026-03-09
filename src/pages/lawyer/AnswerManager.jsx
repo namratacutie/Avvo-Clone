@@ -18,14 +18,22 @@ const AnswerManager = () => {
         fetchInitialData();
     }, [userProfile]);
 
+    const formatDate = (date) => {
+        if (!date) return 'Invalid Date';
+        if (date.seconds) return new Date(date.seconds * 1000).toLocaleDateString();
+        return new Date(date).toLocaleDateString();
+    };
+
     const fetchInitialData = async () => {
         setLoading(true);
         try {
-            // Fetch questions matching specialty or all if no specialty
             const qData = await qaService.getQuestions();
-            // Filter: pending (no answer) and optionally by specialty
-            const pending = qData.filter(q => !q.answer);
-            const answeredByMe = qData.filter(q => q.answeredBy === user?.uid || q.lawyerId === user?.uid);
+            // Filter: pending (no answers yet)
+            const pending = qData.filter(q => (q.answersCount || 0) === 0);
+            // Filter: answered by current lawyer (looks into answers array)
+            const answeredByMe = qData.filter(q =>
+                q.answers && q.answers.some(a => a.lawyerId === user?.uid)
+            );
 
             setQuestions(pending);
             setMyAnswers(answeredByMe);
@@ -47,12 +55,11 @@ const AnswerManager = () => {
 
         setSubmitting(true);
         try {
-            await qaService.submitAnswer(respondingTo.id, {
+            await qaService.addAnswer(respondingTo.id, {
                 answer: answerText,
                 lawyerId: user.uid,
                 lawyerName: userProfile?.displayName || user.displayName || 'Legal Professional',
                 lawyerTitle: userProfile?.title || 'Advocate',
-                answeredAt: new Date().toISOString()
             });
 
             // Refresh data
@@ -98,7 +105,7 @@ const AnswerManager = () => {
                                 <div key={q.id} className="question-card">
                                     <div className="question-card__header">
                                         <span className="category-badge">{q.category}</span>
-                                        <span className="timestamp"><FiClock /> {new Date(q.createdAt).toLocaleDateString()}</span>
+                                        <span className="timestamp"><FiClock /> {formatDate(q.createdAt)}</span>
                                     </div>
                                     <h4 className="question-text">{q.question}</h4>
                                     <p className="question-details">{q.details}</p>
@@ -133,20 +140,23 @@ const AnswerManager = () => {
                         {myAnswers.length === 0 ? (
                             <div className="empty-state">You haven't answered any questions yet.</div>
                         ) : (
-                            myAnswers.map(q => (
-                                <div key={q.id} className="answered-card">
-                                    <div className="answered-card__header">
-                                        <span className="category-badge">{q.category}</span>
-                                        <span className="status-badge success"><FiCheckCircle /> Answered</span>
+                            myAnswers.map(q => {
+                                const myAnswer = q.answers.find(a => a.lawyerId === user?.uid);
+                                return (
+                                    <div key={q.id} className="answered-card">
+                                        <div className="answered-card__header">
+                                            <span className="category-badge">{q.category}</span>
+                                            <span className="status-badge success"><FiCheckCircle /> Answered</span>
+                                        </div>
+                                        <h4 className="question-text">{q.question}</h4>
+                                        <div className="your-answer">
+                                            <strong>Your Response:</strong>
+                                            <p>{myAnswer?.answer}</p>
+                                        </div>
+                                        <span className="timestamp">{formatDate(myAnswer?.createdAt || q.createdAt)}</span>
                                     </div>
-                                    <h4 className="question-text">{q.question}</h4>
-                                    <div className="your-answer">
-                                        <strong>Your Response:</strong>
-                                        <p>{q.answer}</p>
-                                    </div>
-                                    <span className="timestamp">{new Date(q.answeredAt || q.createdAt).toLocaleDateString()}</span>
-                                </div>
-                            ))
+                                );
+                            })
                         )}
                     </div>
                 )}
