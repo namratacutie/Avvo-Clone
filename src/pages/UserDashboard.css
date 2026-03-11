@@ -112,6 +112,7 @@
 }
 
 .empty-state {
+    font-size: 0.9rem;
     text-align: center;
     padding: 2rem;
     color: var(--text-muted);
