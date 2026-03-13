@@ -2,13 +2,15 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
 import { lawyerService } from '../services/lawyerService';
 import Skeleton from '../components/Skeleton';
-import { FiMapPin, FiStar, FiFilter, FiCheckCircle, FiSearch, FiGlobe } from 'react-icons/fi';
+import { FiMapPin, FiStar, FiFilter, FiCheckCircle, FiSearch, FiGlobe, FiList, FiMap } from 'react-icons/fi';
+import LawyerMap from '../components/LawyerMap';
 import './SearchResults.css';
 
 const SearchResults = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [lawyers, setLawyers] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [viewMode, setViewMode] = useState('list'); // 'list' or 'map'
     const [sortBy, setSortBy] = useState('rating');
 
     const issueQuery = searchParams.get('issue') || '';
@@ -186,17 +188,36 @@ const SearchResults = () => {
                             </div>
 
                             {!loading && (
-                                <div className="search-results__sort">
-                                    <label>Sort by:</label>
-                                    <select
-                                        value={sortBy}
-                                        onChange={(e) => setSortBy(e.target.value)}
-                                        className="sort-select"
-                                    >
-                                        <option value="rating">Top Rated</option>
-                                        <option value="reviews">Most Reviews</option>
-                                        <option value="newest">Newest</option>
-                                    </select>
+                                <div className="search-results__controls" style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-md)' }}>
+                                    <div className="view-toggle glass-card" style={{ padding: '4px', borderRadius: 'var(--border-radius-md)', display: 'flex', gap: '2px' }}>
+                                        <button 
+                                            className={`toggle-btn ${viewMode === 'list' ? 'active' : ''}`}
+                                            onClick={() => setViewMode('list')}
+                                            title="List View"
+                                        >
+                                            <FiList />
+                                        </button>
+                                        <button 
+                                            className={`toggle-btn ${viewMode === 'map' ? 'active' : ''}`}
+                                            onClick={() => setViewMode('map')}
+                                            title="Map View"
+                                        >
+                                            <FiMap />
+                                        </button>
+                                    </div>
+
+                                    <div className="search-results__sort">
+                                        <label>Sort by:</label>
+                                        <select
+                                            value={sortBy}
+                                            onChange={(e) => setSortBy(e.target.value)}
+                                            className="sort-select"
+                                        >
+                                            <option value="rating">Top Rated</option>
+                                            <option value="reviews">Most Reviews</option>
+                                            <option value="newest">Newest</option>
+                                        </select>
+                                    </div>
                                 </div>
                             )}
                         </div>
@@ -218,6 +239,10 @@ const SearchResults = () => {
                                         </div>
                                     </div>
                                 ))}
+                            </div>
+                        ) : viewMode === 'map' ? (
+                            <div style={{ marginTop: 'var(--space-md)' }}>
+                                <LawyerMap lawyers={filteredLawyers} />
                             </div>
                         ) : filteredLawyers.length > 0 ? (
                             <div className="results-list">
