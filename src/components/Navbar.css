@@ -40,7 +40,7 @@
 .navbar__links {
     display: flex;
     align-items: center;
-    gap: var(--space-xs);
+    gap: var(--space-sm);
 }
 
 .navbar__link {
