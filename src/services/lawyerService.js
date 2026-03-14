@@ -120,5 +120,41 @@ export const lawyerService = {
             console.error("Error updating lawyer profile:", error);
             throw error;
         }
+    },
+
+    // Sync profile to ensure public presence (Self-healing)
+    syncProfile: async (userId, userProfile) => {
+        if (!userId || !userProfile) return null;
+        try {
+            const lawyerRef = doc(db, COLLECTION_NAME, userId);
+            const lawyerSnap = await getDoc(lawyerRef);
+
+            if (!lawyerSnap.exists()) {
+                console.log("No public profile found for lawyer, re-initializing...");
+                const lawyerData = {
+                    name: userProfile.displayName || 'Lawyer',
+                    email: userProfile.email || '',
+                    title: userProfile.title || 'Advocate',
+                    specialty: userProfile.specialty || 'General Law',
+                    experience: userProfile.experience || 'Professional',
+                    bio: userProfile.bio || 'Legal professional at Find Lawyer Nepal.',
+                    rating: 0,
+                    reviewCount: 0,
+                    office: userProfile.office || 'Kathmandu, Nepal',
+                    phone: userProfile.phone || '',
+                    website: userProfile.website || '',
+                    avatar: userProfile.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(userProfile.displayName || 'L')}&background=random`,
+                    city: userProfile.office?.split(',').pop()?.trim() || 'Kathmandu',
+                    createdAt: serverTimestamp(),
+                    updatedAt: serverTimestamp()
+                };
+                await setDoc(lawyerRef, lawyerData);
+                return true;
+            }
+            return false;
+        } catch (error) {
+            console.error("Error syncing profile:", error);
+            return null;
+        }
     }
 };

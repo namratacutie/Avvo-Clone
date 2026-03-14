@@ -4,6 +4,7 @@ import ProfileEditor from './ProfileEditor';
 import AnswerManager from './AnswerManager';
 import BookingsManager from './BookingsManager';
 import Messages from '../Messages';
+import { lawyerService } from '../../services/lawyerService';
 import { qaService } from '../../services/qaService';
 import { appointmentService } from '../../services/appointmentService';
 import { reviewService } from '../../services/reviewService';
@@ -262,9 +263,19 @@ const SettingsPlaceholder = () => (
         <p>Settings and preferences coming soon.</p>
     </div>
 );
-
 /* ── Main Layout ── */
 const LawyerDashboard = () => {
+    const { user, userProfile } = useAuth();
+
+    useEffect(() => {
+        if (user && userProfile && userProfile.role === 'lawyer') {
+            const sync = async () => {
+                await lawyerService.syncProfile(user.uid, userProfile);
+            };
+            sync();
+        }
+    }, [user, userProfile]);
+
     return (
         <div className="ld-page">
             <div className="ld-layout">
