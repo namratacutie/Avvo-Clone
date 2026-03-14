@@ -145,6 +145,7 @@ export const lawyerService = {
                     website: userProfile.website || '',
                     avatar: userProfile.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(userProfile.displayName || 'L')}&background=random`,
                     city: userProfile.office?.split(',').pop()?.trim() || 'Kathmandu',
+                    verified: true,
                     createdAt: serverTimestamp(),
                     updatedAt: serverTimestamp()
                 };

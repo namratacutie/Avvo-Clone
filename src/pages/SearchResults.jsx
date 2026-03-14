@@ -248,11 +248,17 @@ const SearchResults = () => {
                             <div className="results-list">
                                 {filteredLawyers.map(lawyer => (
                                     <div key={lawyer.id} className="result-card">
-                                        <div
+                                        <div 
                                             className="result-card__avatar"
-                                            style={{ background: `linear-gradient(135deg, ${lawyer.color}, ${lawyer.color}cc)` }}
+                                            style={{ 
+                                                background: lawyer.avatar ? 'transparent' : `linear-gradient(135deg, ${lawyer.color || '#4f46e5'}, ${lawyer.color ? lawyer.color + 'cc' : '#7c3aed'})` 
+                                            }}
                                         >
-                                            {lawyer.initials}
+                                            {lawyer.avatar ? (
+                                                <img src={lawyer.avatar} alt={lawyer.name} className="result-card__avatar-img" />
+                                            ) : (
+                                                lawyer.initials || lawyer.name?.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2)
+                                            )}
                                         </div>
 
                                         <div className="result-card__info">
@@ -269,7 +275,10 @@ const SearchResults = () => {
 
                                         <div className="result-card__meta">
                                             <div className="result-card__rating">
-                                                <span className="result-card__rating-value">{lawyer.rating?.toFixed(1) || '0.0'}</span>
+                                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px', color: 'var(--color-primary)' }}>
+                                                    <FiStar style={{ fill: 'currentColor' }} />
+                                                    <span className="result-card__rating-value">{lawyer.rating?.toFixed(1) || '0.0'}</span>
+                                                </div>
                                                 <span className="result-card__rating-label">Find Lawyer Nepal Rating</span>
                                             </div>
                                             <div style={{ display: 'flex', gap: '8px', width: '100%' }}>

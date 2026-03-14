@@ -118,9 +118,15 @@ const LawyerProfile = () => {
                     <div className="profile-header__content">
                         <div
                             className="profile-header__avatar"
-                            style={{ background: `linear-gradient(135deg, ${lawyer.color}, ${lawyer.color}cc)` }}
+                            style={{ 
+                                background: lawyer.avatar ? 'transparent' : `linear-gradient(135deg, ${lawyer.color || '#4f46e5'}, ${lawyer.color ? lawyer.color + 'cc' : '#7c3aed'})` 
+                            }}
                         >
-                            {lawyer.initials}
+                            {lawyer.avatar ? (
+                                <img src={lawyer.avatar} alt={lawyer.name} className="profile-header__avatar-img" />
+                            ) : (
+                                lawyer.initials || lawyer.name?.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2)
+                            )}
                         </div>
                         <div className="profile-header__info">
                             <h1 className="profile-header__name">
@@ -135,7 +141,10 @@ const LawyerProfile = () => {
                         </div>
                         <div className="profile-header__rating">
                             <div className="profile-rating-box">
-                                <span className="profile-rating-value">{lawyer.rating?.toFixed(1) || '0.0'}</span>
+                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', marginBottom: '4px' }}>
+                                    <FiStar style={{ fill: 'white', fontSize: '1.2rem' }} />
+                                    <span className="profile-rating-value">{lawyer.rating?.toFixed(1) || '0.0'}</span>
+                                </div>
                                 <span className="profile-rating-label">Rating</span>
                             </div>
                         </div>
