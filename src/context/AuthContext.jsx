@@ -62,6 +62,27 @@ export const AuthProvider = ({ children }) => {
         };
 
         await setDoc(doc(db, 'users', newUser.uid), profileData);
+
+        // If user is a lawyer, also create an entry in the 'lawyers' collection
+        if (role === 'lawyer') {
+            const lawyerData = {
+                name: name,
+                email: email,
+                title: 'Advocate',
+                specialty: 'Family Law', // Default specialty
+                experience: 'New Professional',
+                bio: 'Legal professional at Find Lawyer Nepal.',
+                rating: 0,
+                reviewCount: 0,
+                office: 'Kathmandu, Nepal',
+                phone: '',
+                website: '',
+                avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`,
+                createdAt: new Date().toISOString()
+            };
+            await setDoc(doc(db, 'lawyers', newUser.uid), lawyerData);
+        }
+
         setUserProfile(profileData);
 
         return userCredential;

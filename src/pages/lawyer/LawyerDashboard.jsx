@@ -274,7 +274,7 @@ const LawyerDashboard = () => {
                         <Route path="/" element={<DashboardOverview />} />
                         <Route path="/profile" element={<ProfileEditor />} />
                         <Route path="/answers" element={<AnswerManager />} />
-                        <Route path="/messages" element={<Messages />} />
+                        <Route path="/messages" element={<Messages context="dashboard" />} />
                         <Route path="/bookings" element={<BookingsManager />} />
                         <Route path="/settings" element={<SettingsPlaceholder />} />
                     </Routes>

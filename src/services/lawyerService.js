@@ -7,6 +7,7 @@ import {
     where,
     limit,
     addDoc,
+    setDoc,
     updateDoc,
     serverTimestamp
 } from 'firebase/firestore';
